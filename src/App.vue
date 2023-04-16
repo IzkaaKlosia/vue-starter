@@ -7,9 +7,9 @@
     </div>
     <div v-else>
     <h1>Witaj w systemie do zapisów na zajęcia </h1>
-    Zaloguj się emailem:
-    <input type="email" v-model="email">
-    <button @click="logMeIn()">Wchodzę</button>
+      <LoginForm @login="(username) => logMeIn(username)" button-label="Wejdź"></LoginForm>
+      <LoginForm @login="(username) => logMeIn(username)" button-label="Wleć"></LoginForm>
+      <LoginForm @login="(username) => logMeIn(username)" :button-label="Math.random() < 0.5 ? 'Etykieta A' : 'Etykieta B'"></LoginForm>
     </div>
   </div>
 
@@ -17,29 +17,26 @@
 
 <script>
 import "milligram";
+import LoginForm from "./LoginForm";
 
 export default {
+
+  components: {LoginForm},
+
   data() {
     return {
-      email: '',
-      loggedIn: false,
-      password: '',
-      loggedOut: true
+      authenticatedUsername: '',
+      password: ''
     };
   },
   methods: {
-    alertMyEmail() {
-      alert(this.email);
-    },
-    logMeIn(){
-      this.loggedIn=true;
+    logMeIn(username) {
+      this.authenticatedUsername = username;
     },
     logOut(){
-      this.loggedIn=false;
-      this.email='';
+      this.authenticatedUsername='';
     }
   }
-
 }
 
 </script>
